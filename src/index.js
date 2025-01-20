@@ -201,12 +201,14 @@ class PackageAnalyzer {
         }
 
         Code:
-        ${content}`;
+        ${content}
+
+        Make sure you return only valid JSON (no code fences, no markdown formatting).`;
 
         const response = await this.openai.chat.completions.create({
-            model: "gpt-4",
+            model: "gpt-4o-mini",
             messages: [
-                { role: "system", content: "You are a code quality analysis expert. Provide detailed, technical analysis." },
+                { role: "system", content: "You are a code quality analysis expert. Provide detailed, technical analysis in clean JSON format without any markdown or code formatting." },
                 { role: "user", content: prompt }
             ],
             temperature: 0
@@ -231,12 +233,14 @@ class PackageAnalyzer {
         }
 
         Code:
-        ${content}`;
+        ${content}
+
+        Make sure you return only valid JSON (no code fences, no markdown formatting).`;
 
         const response = await this.openai.chat.completions.create({
-            model: "gpt-4",
+            model: "gpt-4o-mini",
             messages: [
-                { role: "system", content: "You are an expert in JavaScript package implementation analysis." },
+                { role: "system", content: "You are an expert in JavaScript package implementation analysis. Return only clean JSON without any markdown or code formatting." },
                 { role: "user", content: prompt }
             ],
             temperature: 0
@@ -260,12 +264,14 @@ class PackageAnalyzer {
         }
 
         Code:
-        ${content}`;
+        ${content}
+
+        Make sure you return only valid JSON (no code fences, no markdown formatting).`;
 
         const response = await this.openai.chat.completions.create({
-            model: "gpt-4",
+            model: "gpt-4o-mini",
             messages: [
-                { role: "system", content: "You are an expert code reviewer. Provide specific, actionable suggestions." },
+                { role: "system", content: "You are an expert code reviewer. Provide specific, actionable suggestions in clean JSON format without any markdown or code formatting." },
                 { role: "user", content: prompt }
             ],
             temperature: 0
@@ -273,7 +279,6 @@ class PackageAnalyzer {
 
         return JSON.parse(response.choices[0].message.content);
     }
-
 
     async generateEnhancedReport(analysis, llmAnalysis) {
         const scoreAnalysis = await this.calculateLLMScore(llmAnalysis);
@@ -307,12 +312,14 @@ class PackageAnalyzer {
         {
             "score": number (0-100),
             "reasoning": string (brief explanation of the score)
-        }`;
+        }
+
+        Make sure you return only valid JSON (no code fences, no markdown formatting).`;
 
         const response = await this.openai.chat.completions.create({
-            model: "gpt-4",
+            model: "gpt-4o-mini",
             messages: [
-                { role: "system", content: "You are a precise code quality scoring system. Provide exact numerical scores based on analysis." },
+                { role: "system", content: "You are a precise code quality scoring system. Provide exact numerical scores in clean JSON format without any markdown or code formatting." },
                 { role: "user", content: prompt }
             ],
             temperature: 0
@@ -446,7 +453,7 @@ class PackageAnalyzer {
         Ensure the report is comprehensive, professional, and provides actionable insights while maintaining a clear structure and visual hierarchy.`;
     
         const response = await this.openai.chat.completions.create({
-            model: "gpt-4",
+            model: "gpt-4o-mini",
             messages: [
                 { 
                     role: "system", 
@@ -563,7 +570,7 @@ class PackageAnalyzer {
     //     Create a comprehensive, professional report that is both detailed and easy to read. Focus on actionable insights and clear presentation of findings.`;
     
     //     const response = await this.openai.chat.completions.create({
-    //         model: "gpt-4",
+    //         model: "gpt-4o-mini",
     //         messages: [
     //             { 
     //                 role: "system", 
@@ -617,7 +624,7 @@ class PackageAnalyzer {
     //     Make the report professional but engaging.`;
 
     //     const response = await this.openai.chat.completions.create({
-    //         model: "gpt-4",
+    //         model: "gpt-4o-mini",
     //         messages: [
     //             { role: "system", content: "You are a technical report generator specializing in code quality analysis." },
     //             { role: "user", content: prompt }
@@ -641,9 +648,11 @@ async function main() {
     const result = await analyzer.analyze(owner, repo, ['react']);
 
     // write the result to a file
-    fs.writeFileSync(`report-${owner}-${repo}-${result.grade}-${new Date().toISOString().split('T')[0]}.md`, result.report);
+    fs.writeFileSync(`./report-${owner}-${repo}-${result.grade}-${new Date().toISOString().split('T')[0]}.md`, result.report);
 }
 
 main();
 
-module.exports = PackageAnalyzer;
+module.exports = {
+    PackageAnalyzer
+}

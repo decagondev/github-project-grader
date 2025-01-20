@@ -1,6 +1,6 @@
 {
     "name": "github-project-grader",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Analyze GitHub repositories for package implementation and code quality and give a score along with a markdown report",
     "main": "src/index.js",
     "dependencies": {
