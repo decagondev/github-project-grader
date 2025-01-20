@@ -1,0 +1,22 @@
+{
+    "name": "github-project-grader",
+    "version": "0.0.1",
+    "description": "Analyze GitHub repositories for package implementation and code quality and give a score along with a markdown report",
+    "main": "src/index.js",
+    "dependencies": {
+        "@octokit/rest": "^19.0.7",
+        "@pinecone-database/pinecone": "^2.0.0",
+        "dotenv": "^16.4.7",
+        "openai": "^4.0.0"
+    },
+    "scripts": {
+        "dev": "node src/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/decagondev/github-project-grader.git"
+    },
+    "keywords": ["github", "project", "grader", "score", "markdown", "report"],
+    "author": "Tom Tarpey",
+    "license": "MIT"
+}
